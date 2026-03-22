@@ -1,0 +1,76 @@
+/**
+ * Ajax Cart Slideout.
+ * -----------------------------------------
+ * This is the styles/controls for the cart slideout.
+ * Most of this is controlled via the element as it adds a fixed wrapper.
+ *
+ * @file: /views/partials/shop/ajax-cart.twig
+ */
+.cart-slideout {
+  transition: .3s;
+  max-width: 340px;
+
+  @apply w-full;
+  @apply fixed top-0 bottom-0 left-full;
+  @apply bg-gray-400;
+
+  &.active {
+    transform: translateX(-100%);
+    box-shadow: 0 0 100px rgba(39,39,66,.4);
+  }
+}
+
+.cart-slideout-details {
+  @apply p-5;
+}
+
+
+/**
+ * WooCommerce Applied/HTMl Applied Classes.
+ * -----------------------------------------
+ * Use these to overwrite the style of the mini-cart that pops out
+ * on the side of the screen. If you aren't using the mini-cart anywhere
+ * you can remove these or rely on purgecss.
+ &
+ * @file: /woocommerce/cart/mini-cart.php
+ */
+.woocommerce-mini-cart {
+}
+
+.woocommerce-mini-cart-item {
+  @apply flex;
+  @apply mb-2;
+  @apply pb-2;
+  @apply border-b;
+
+  &:last-child {
+    @apply pb-0 border-b-0;
+  }
+
+  .remove {
+    @apply mr-2;
+  }
+
+  .image {
+    @apply mr-2;
+  }
+
+  img {
+    max-width: 50px;
+    height: auto;
+  }
+}
+
+.woocommerce-mini-cart__total {
+  @apply py-3 my-3;
+  @apply border-t border-b;
+  @apply block;
+}
+
+.woocommerce-mini-cart__buttons {
+  @apply flex;
+
+  a:first-child {
+    @apply mr-4;
+  }
+}

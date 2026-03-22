@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html {{site.language_attributes}}>
+
+	<head>
+		<meta charset="{{ site.charset }}">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1">
+		{# <title>{{ site.title }}</title> #}
+
+		{% block htmlheader %}
+			<style>
+				{{source("/dist/main.min.css")}}</style>
+		{% endblock %}
+
+		{% if 'adtrak.agency' in site.link %}
+			<meta name="robots" content="noindex">
+		{% endif %}
+
+		{% if options.google_analytics %}
+			{{ options.google_analytics}}
+		{% endif %}
+
+		{% include "_layout/schema.twig" %}
+
+		{# <link rel="stylesheet" href="{{ site.theme.link }}/dist/main.min.css" type="text/css" media="screen" /> #}
+		{# <script src="{{ site.theme.link }}/dist/production-dist.js" defer></script> #}
+
+	{{ function('wp_head') }}
+	</head>
+
+		<body class="{{body_class}}"> {{ fn('wp_body_open') }}
+
+		{# Set up a new mobile menu  #}
+		{% set mobileMenu = primaryMenu.items %}
+
+		{# Get the secondary menu items and set it to a new topMenu var #}
+		{% set topMenu = secondaryMenu.items %}
+
+		{# See if topMenu has content - if so, merge it into the mobileMenu #}
+		{% if topMenu | default(false) %}
+			{% set mobileMenu = mobileMenu|merge(topMenu) %}
+		{% endif %}
+
+		{% include "_layout/mobile-nav-2.twig" %}
+
+		<div class="wrapper">
+
+			{% include "_layout/mobile-fixed-bar.twig" %}
+
+
+			{% block header %}
+				{% include "_layout/header.twig" %}
+			{% endblock %}
+
+			{# {% block hero %}
+				{% include "_components/hero.twig" %}
+			{% endblock %} #}
+
+			{% block content %}{% endblock %}
+
+			{% block footer %}
+				{% include "_layout/footer.twig" %}
+				{# Ajax Cart Slideout. Remove this if not needed. #}
+				{% include '_shop/ajax-cart.twig' %}
+			{% endblock %}
+
+		</div>
+		<!-- wrapper -->
+
+		{{ function('wp_footer') }}
+	</body>
+
+</html>
